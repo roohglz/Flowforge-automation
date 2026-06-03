@@ -5,6 +5,13 @@ sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 import streamlit as st
 from processors.workflow_engine import get_workflow_stats, get_all_workflows
 
+# Auto setup database if it doesn't exist
+if not os.path.exists('database/flowforge.db'):
+    from database.models import create_tables
+    from database.setup_db import seed_data
+    create_tables()
+    seed_data()
+
 st.set_page_config(
     page_title="FlowForge Automation Suite",
     page_icon="⚡",
